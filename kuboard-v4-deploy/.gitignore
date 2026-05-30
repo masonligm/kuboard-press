@@ -1,0 +1,5 @@
+# Kuboard 运行时日志（容器 bind mount 生成，不纳入版本控制）
+kuboard-log/
+
+# 本地环境变量（如后续把密码外移到 .env，避免提交明文）
+.env

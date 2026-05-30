@@ -1,0 +1,57 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: kuboard-mysql
+    restart: unless-stopped
+    environment:
+      TZ: "Asia/Shanghai"
+      MYSQL_ROOT_PASSWORD: Kuboard123
+      MYSQL_DATABASE: kuboard
+      MYSQL_USER: kuboard
+      MYSQL_PASSWORD: Kuboard123
+    # 把容器 3306 映射到宿主机 13306，方便用 Navicat/DBeaver 等本地工具连接
+    # （用 13306 避免与宿主机本地可能已存在的 MySQL 3306 冲突）
+    ports:
+      - "13306:3306"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - kuboard-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - kuboard-net
+
+  kuboard:
+    # 如需用本地自己 build 的镜像，把下面改成 eipwork/kuboard:v4 或你的本地 tag
+    image: swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard:v4
+    container_name: kuboard
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8098:80"
+    environment:
+      TZ: "Asia/Shanghai"
+      # Kuboard v4 官方支持 MySQL(>=5.7) / MariaDB / OpenGauss，不支持标准 PostgreSQL
+      DB_DRIVER: com.mysql.cj.jdbc.Driver
+      # host 用 compose 内的服务名 mysql，容器间通过 kuboard-net 直接互通
+      DB_URL: "jdbc:mysql://mysql:3306/kuboard?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8"
+      DB_USERNAME: kuboard
+      DB_PASSWORD: Kuboard123
+    volumes:
+      - ./kuboard-log:/app/logs
+    networks:
+      - kuboard-net
+
+networks:
+  kuboard-net:
+    driver: bridge
+
+volumes:
+  kuboard-mysql-data:
