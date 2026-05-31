@@ -1,0 +1,40 @@
+{
+  "scripts": {
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build ."
+  },
+  "dependencies": {
+    "@vssue/api-github-v4": "^1.4.7",
+    "@vssue/vuepress-plugin-vssue": "^1.4.8",
+    "@vuepress/plugin-active-header-links": "^1.8.2",
+    "@vuepress/plugin-back-to-top": "^1.8.2",
+    "@vuepress/plugin-google-analytics": "^1.8.2",
+    "@vuepress/plugin-medium-zoom": "^1.8.2",
+    "@vuepress/plugin-nprogress": "^1.8.2",
+    "animated-number-vue": "^1.0.0",
+    "aos": "^2.3.4",
+    "async-validator": "1.11.5",
+    "axios": "^0.21.1",
+    "babel-plugin-component": "^1.1.1",
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
+    "codemirror": "^5.65.0",
+    "date-fns": "^1.30.1",
+    "element-ui": "^2.15.6",
+    "esm": "^3.2.25",
+    "js-cookie": "^2.2.1",
+    "js-yaml": "^4.1.0",
+    "reduce-css-calc": "^2.1.8",
+    "vue-clipboard2": "^0.3.1",
+    "vue-codemirror": "^4.0.6",
+    "vue2-animate": "^2.1.4",
+    "vuepress": "^1.8.2",
+    "vuepress-plugin-baidu-autopush": "^1.0.1",
+    "vuepress-plugin-code-copy": "^1.0.6",
+    "vuepress-plugin-code-switcher": "^1.1.0",
+    "vuepress-plugin-named-chunks": "^1.1.4",
+    "vuepress-plugin-reading-progress": "^1.0.10",
+    "vuepress-plugin-seo": "^0.1.4",
+    "vuepress-plugin-sitemap": "^2.3.1"
+  }
+}
